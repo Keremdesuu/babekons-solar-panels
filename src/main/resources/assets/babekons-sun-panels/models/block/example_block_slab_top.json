@@ -2,7 +2,7 @@
   "parent": "minecraft:block/slab_top",
   "textures": {
     "bottom": "minecraft:block/stone",
-    "top": "minecraft:block/stone",
+    "top": "babekons-sun-panels:block/solar_panel_top",
     "side": "minecraft:block/stone"
   }
 }
