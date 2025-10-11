@@ -13,3 +13,7 @@ All notable changes to this project will be documented in this file.
 ## v1.1.0 - 2025-10-11
 - Convert Solar Panel to SlabBlock\n- Add slab models and blockstate (bottom/top/double)\n- Adjust loot to drop 2 when double slab\n- Update item model and recipe
 
+
+## v1.1.1 - 2025-10-11
+- New top texture for Solar Panel slabs\n- Update slab and double slab models to use it
+
