@@ -1,4 +1,5 @@
 {
   "block.babekons-sun-panels.example_block": "Solar Panel",
+  "item.babekons-sun-panels.example_block": "Solar Panel",
   "itemGroup.babekons-sun-panels.babekons_engineering": "Babekon's Engineering"
 }
