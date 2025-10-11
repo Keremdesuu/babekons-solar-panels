@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "babekons-sun-panels:block/example_block" }
+    "type=bottom": { "model": "babekons-sun-panels:block/example_block_slab" },
+    "type=top":    { "model": "babekons-sun-panels:block/example_block_slab_top" },
+    "type=double": { "model": "babekons-sun-panels:block/example_block" }
   }
 }

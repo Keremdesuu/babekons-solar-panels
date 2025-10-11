@@ -4,7 +4,20 @@
     {
       "rolls": 1,
       "entries": [
-        { "type": "minecraft:item", "name": "babekons-sun-panels:example_block" }
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "babekons-sun-panels:example_block",
+              "conditions": [
+                { "condition": "minecraft:block_state_property", "block": "babekons-sun-panels:example_block", "properties": { "type": "double" } }
+              ],
+              "functions": [ { "function": "minecraft:set_count", "count": 2 } ]
+            },
+            { "type": "minecraft:item", "name": "babekons-sun-panels:example_block" }
+          ]
+        }
       ],
       "conditions": [
         { "condition": "minecraft:survives_explosion" }
