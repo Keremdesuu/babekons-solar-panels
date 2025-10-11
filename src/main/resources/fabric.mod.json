@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "babekons-sun-panels",
+	"version": "${version}",
+	"name": "Babekon's Sun Panels",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/babekons-sun-panels/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"babekon.sun.BabekonsSunPanels"
+		],
+		"client": [
+			"babekon.sun.BabekonsSunPanelsClient"
+		],
+		"fabric-datagen": [
+			"babekon.sun.BabekonsSunPanelsDataGenerator"
+		]
+	},
+	"mixins": [
+		"babekons-sun-panels.mixins.json",
+		{
+			"config": "babekons-sun-panels.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"minecraft": "~1.21.10",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
