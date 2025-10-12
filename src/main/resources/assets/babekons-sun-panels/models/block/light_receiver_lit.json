@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "side": "babekons-sun-panels:block/lamp_side",
-    "top": "minecraft:block/iron_block",
-    "bottom": "minecraft:block/iron_block"
+    "top": "babekons-sun-panels:block/lamp_top",
+    "bottom": "babekons-sun-panels:block/lamp_bottom"
   }
 }

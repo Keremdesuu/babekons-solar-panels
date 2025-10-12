@@ -45,3 +45,7 @@ All notable changes to this project will be documented in this file.
 ## v1.2.5 - 2025-10-12
 - Dynamic BRIGHTNESS (0..15) with gradual decay\n- LIT used for model switching\n- Ready for distinct lit/unlit textures
 
+
+## v1.2.6 - 2025-10-12
+- Update textures for solar panel (side/bottom)\n- Update lamp top/bottom/side and model mapping\n- Update battery top/bottom/side\n- Update cable center/arms to cable_side/cable_top
+

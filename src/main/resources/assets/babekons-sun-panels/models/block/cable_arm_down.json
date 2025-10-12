@@ -1,8 +1,8 @@
 {
-  "textures": { "all": "minecraft:block/iron_bars" },
+  "textures": { "side": "babekons-sun-panels:block/cable_side", "top": "babekons-sun-panels:block/cable_top" },
   "elements": [
     { "from": [5, 0, 5], "to": [11, 5, 11],
-      "faces": { "down": {"texture":"#all"}, "up": {"texture":"#all"}, "north": {"texture":"#all"}, "south": {"texture":"#all"}, "west": {"texture":"#all"}, "east": {"texture":"#all"} }
+      "faces": { "down": {"texture":"#top"}, "up": {"texture":"#top"}, "north": {"texture":"#side"}, "south": {"texture":"#side"}, "west": {"texture":"#side"}, "east": {"texture":"#side"} }
     }
   ]
 }

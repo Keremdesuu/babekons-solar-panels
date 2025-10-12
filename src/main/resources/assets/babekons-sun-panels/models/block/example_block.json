@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "top": "babekons-sun-panels:block/solar_panel_top",
-    "bottom": "minecraft:block/stone",
-    "side": "minecraft:block/stone"
+    "bottom": "babekons-sun-panels:block/solar_panel_bottom",
+    "side": "babekons-sun-panels:block/solar_panel_side"
   }
 }
