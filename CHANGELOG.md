@@ -37,3 +37,7 @@ All notable changes to this project will be documented in this file.
 - Cable connects if KE API or tag matches
 - Data pack friendly configuration
 
+
+## v1.2.4 - 2025-10-12
+- Add WATERLOGGED state and fluid visuals\n- Thinner center/arms (4px) for hitbox/outline\n- Connect via KE API or ke_connectable tag
+
