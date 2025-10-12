@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "N N",
+    "NRN",
+    "N N"
+  ],
+  "key": {
+    "N": { "item": "minecraft:iron_nugget" },
+    "R": { "item": "minecraft:redstone" }
+  },
+  "result": { "item": "babekons-sun-panels:cable", "count": 6 }
+}

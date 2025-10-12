@@ -41,12 +41,23 @@ if (Test-Path $chPath) {
 }
 
 # Commit, tag, push
-$git = 'C:\\Program Files\\Git\\cmd\\git.exe'
-if (!(Test-Path $git)) { $git = 'C:\\Program Files\\Git\\bin\\git.exe' }
-& $git add -A
-& $git commit -m $message
-& $git tag "v$newVersion"
-& $git push
-& $git push --tags
+$gitCmdObj = Get-Command git -ErrorAction SilentlyContinue
+if ($gitCmdObj) {
+  $gitCmd = $gitCmdObj.Source
+} else {
+  if (Test-Path 'C:\\Program Files\\Git\\cmd\\git.exe') {
+    $gitCmd = 'C:\\Program Files\\Git\\cmd\\git.exe'
+  } elseif (Test-Path 'C:\\Program Files\\Git\\bin\\git.exe') {
+    $gitCmd = 'C:\\Program Files\\Git\\bin\\git.exe'
+  } else {
+    throw 'git executable not found in PATH or common install locations.'
+  }
+}
+
+& $gitCmd add -A
+& $gitCmd commit -m $message
+& $gitCmd tag "v$newVersion"
+& $gitCmd push
+& $gitCmd push --tags
 
 Write-Host "Bumped to $newVersion and pushed tag v$newVersion"

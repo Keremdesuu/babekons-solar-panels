@@ -23,6 +23,9 @@ public class ModItemGroups {
                         .displayName(Text.translatable("itemGroup." + BabekonsSunPanels.MOD_ID + ".babekons_engineering"))
                         .entries((context, entries) -> {
                             entries.add(ModBlocks.EXAMPLE_BLOCK);
+                            entries.add(ModBlocks.BATTERY);
+                            entries.add(ModBlocks.CABLE);
+                            entries.add(ModBlocks.LIGHT_RECEIVER);
                         })
                         .build());
 

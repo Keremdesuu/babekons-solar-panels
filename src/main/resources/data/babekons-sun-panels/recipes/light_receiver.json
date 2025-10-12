@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GPG",
+    "GGG"
+  ],
+  "key": {
+    "G": { "item": "minecraft:glass" },
+    "P": { "item": "minecraft:redstone_torch" }
+  },
+  "result": { "item": "babekons-sun-panels:light_receiver", "count": 1 }
+}

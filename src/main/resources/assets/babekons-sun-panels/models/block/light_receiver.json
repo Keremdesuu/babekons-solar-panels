@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "babekons-sun-panels:block/light_receiver"
+  }
+}

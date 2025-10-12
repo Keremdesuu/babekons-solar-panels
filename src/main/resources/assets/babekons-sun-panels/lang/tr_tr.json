@@ -1,5 +1,11 @@
 {
   "block.babekons-sun-panels.example_block": "Güneş Paneli",
   "item.babekons-sun-panels.example_block": "Güneş Paneli",
+  "block.babekons-sun-panels.battery": "Batarya",
+  "item.babekons-sun-panels.battery": "Batarya",
+  "block.babekons-sun-panels.cable": "Kablo",
+  "item.babekons-sun-panels.cable": "Kablo",
+  "block.babekons-sun-panels.light_receiver": "KE Lamba",
+  "item.babekons-sun-panels.light_receiver": "KE Lamba",
   "itemGroup.babekons-sun-panels.babekons_engineering": "Babekon'un Mühendisliği"
 }

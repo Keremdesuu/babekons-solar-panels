@@ -1,5 +1,11 @@
 {
   "block.babekons-sun-panels.example_block": "Solar Panel",
   "item.babekons-sun-panels.example_block": "Solar Panel",
+  "block.babekons-sun-panels.battery": "Battery",
+  "item.babekons-sun-panels.battery": "Battery",
+  "block.babekons-sun-panels.cable": "Cable",
+  "item.babekons-sun-panels.cable": "Cable",
+  "block.babekons-sun-panels.light_receiver": "KE Lamp",
+  "item.babekons-sun-panels.light_receiver": "KE Lamp",
   "itemGroup.babekons-sun-panels.babekons_engineering": "Babekon's Engineering"
 }

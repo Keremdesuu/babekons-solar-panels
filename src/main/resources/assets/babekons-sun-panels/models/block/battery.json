@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "babekons-sun-panels:block/battery_side",
+    "top": "minecraft:block/iron_block",
+    "bottom": "minecraft:block/iron_block"
+  }
+}

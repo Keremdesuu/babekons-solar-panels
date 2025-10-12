@@ -17,3 +17,7 @@ All notable changes to this project will be documented in this file.
 ## v1.1.1 - 2025-10-11
 - New top texture for Solar Panel slabs\n- Update slab and double slab models to use it
 
+
+## v1.2.0 - 2025-10-12
+- Cables: full 6-direction connect + visual arms\n- Cables: internal buffer for chaining, auto-recompute connections\n- KE Lamp: max brightness and 5x persistence\n- Battery: side texture and model update\n- Remove all GUIs
+

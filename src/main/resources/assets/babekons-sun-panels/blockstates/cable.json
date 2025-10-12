@@ -1,0 +1,11 @@
+{
+  "multipart": [
+    { "apply": { "model": "babekons-sun-panels:block/cable" } },
+    { "when": { "up": true },    "apply": { "model": "babekons-sun-panels:block/cable_arm_up" } },
+    { "when": { "down": true },  "apply": { "model": "babekons-sun-panels:block/cable_arm_down" } },
+    { "when": { "north": true }, "apply": { "model": "babekons-sun-panels:block/cable_arm_north" } },
+    { "when": { "south": true }, "apply": { "model": "babekons-sun-panels:block/cable_arm_south" } },
+    { "when": { "east": true },  "apply": { "model": "babekons-sun-panels:block/cable_arm_east" } },
+    { "when": { "west": true },  "apply": { "model": "babekons-sun-panels:block/cable_arm_west" } }
+  ]
+}

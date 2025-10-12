@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=false": { "model": "babekons-sun-panels:block/light_receiver" },
+    "lit=true":  { "model": "babekons-sun-panels:block/light_receiver_lit" }
+  }
+}

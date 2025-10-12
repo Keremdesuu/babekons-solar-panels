@@ -20,6 +20,7 @@ public class BabekonsSunPanels implements ModInitializer {
 		// Proceed with mild caution.
 
 		ModBlocks.registerModBlocks();
+		ModBlockEntities.register();
 		ModItemGroups.registerItemGroups();
 		LOGGER.info("{} initialized. Registered blocks.", MOD_ID);
 	}
