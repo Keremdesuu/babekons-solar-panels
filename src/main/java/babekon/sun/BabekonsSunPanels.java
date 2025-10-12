@@ -1,6 +1,7 @@
 package babekon.sun;
 
 import net.fabricmc.api.ModInitializer;
+import babekon.sun.energy.KeApi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ public class BabekonsSunPanels implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.register();
 		ModItemGroups.registerItemGroups();
+		KeApi.register();
 		LOGGER.info("{} initialized. Registered blocks.", MOD_ID);
 	}
 }

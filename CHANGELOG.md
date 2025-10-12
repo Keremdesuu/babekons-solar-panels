@@ -27,3 +27,7 @@ All notable changes to this project will be documented in this file.
 - Cable buffer & 6-direction connections
 - KE Lamp visuals and brightness
 
+
+## v1.2.2 - 2025-10-12
+- Added BlockApiLookup for KE (abekons-sun-panels:ke)\n- Cables now find neighbors via API (no instanceof)\n- Registered for battery, panel, cable, lamp
+

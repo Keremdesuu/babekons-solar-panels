@@ -3,6 +3,7 @@ package babekon.sun.block.entity;
 import babekon.sun.ModBlockEntities;
 import babekon.sun.block.CableBlock;
 import babekon.sun.energy.KeStorage;
+import babekon.sun.energy.KeApi;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
@@ -43,8 +44,8 @@ public class CableBlockEntity extends BlockEntity implements KeStorage {
             if (!isConnected(state, dir)) continue;
             if (be.buffer >= BUFFER_CAPACITY) break;
             BlockPos np = pos.offset(dir);
-            BlockEntity beNeighbor = world.getBlockEntity(np);
-            if (!(beNeighbor instanceof KeStorage src)) continue;
+            KeStorage src = KeApi.LOOKUP.find(world, np, dir.getOpposite());
+            if (src == null) continue;
             if (src.getKeStored() <= 0) continue;
             int space = BUFFER_CAPACITY - be.buffer;
             int want = Math.min(space, budget);
@@ -62,8 +63,8 @@ public class CableBlockEntity extends BlockEntity implements KeStorage {
             if (budget <= 0) break;
             if (!isConnected(state, dir)) continue;
             BlockPos np = pos.offset(dir);
-            BlockEntity beNeighbor = world.getBlockEntity(np);
-            if (!(beNeighbor instanceof KeStorage dst)) continue;
+            KeStorage dst = KeApi.LOOKUP.find(world, np, dir.getOpposite());
+            if (dst == null) continue;
             int want = Math.min(be.buffer, budget);
             if (want <= 0) break;
             int accepted = dst.insertKe(want, false);
@@ -88,8 +89,8 @@ public class CableBlockEntity extends BlockEntity implements KeStorage {
 
     private static boolean canConnect(World world, BlockPos neighborPos) {
         if (world == null) return false;
-        BlockEntity be = world.getBlockEntity(neighborPos);
-        return be instanceof KeStorage;
+    KeStorage ks = KeApi.LOOKUP.find(world, neighborPos, null);
+    return ks != null;
     }
 
     @Override
