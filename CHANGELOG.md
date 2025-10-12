@@ -31,3 +31,9 @@ All notable changes to this project will be documented in this file.
 ## v1.2.2 - 2025-10-12
 - Added BlockApiLookup for KE (abekons-sun-panels:ke)\n- Cables now find neighbors via API (no instanceof)\n- Registered for battery, panel, cable, lamp
 
+
+## v1.2.3 - 2025-10-12
+- Add block tag: babekons-sun-panels:ke_connectable
+- Cable connects if KE API or tag matches
+- Data pack friendly configuration
+

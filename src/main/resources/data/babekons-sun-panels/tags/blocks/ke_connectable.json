@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "babekons-sun-panels:battery",
+    "babekons-sun-panels:example_block",
+    "babekons-sun-panels:light_receiver",
+    "babekons-sun-panels:cable"
+  ]
+}
