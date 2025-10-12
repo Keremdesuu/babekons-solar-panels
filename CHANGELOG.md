@@ -41,3 +41,7 @@ All notable changes to this project will be documented in this file.
 ## v1.2.4 - 2025-10-12
 - Add WATERLOGGED state and fluid visuals\n- Thinner center/arms (4px) for hitbox/outline\n- Connect via KE API or ke_connectable tag
 
+
+## v1.2.5 - 2025-10-12
+- Dynamic BRIGHTNESS (0..15) with gradual decay\n- LIT used for model switching\n- Ready for distinct lit/unlit textures
+

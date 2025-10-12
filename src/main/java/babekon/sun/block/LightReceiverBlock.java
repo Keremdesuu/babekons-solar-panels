@@ -7,6 +7,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -16,16 +17,17 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class LightReceiverBlock extends Block implements BlockEntityProvider {
-    public static final BooleanProperty LIT = Properties.LIT;
+    public static final BooleanProperty LIT = Properties.LIT; // for model switching
+    public static final IntProperty BRIGHTNESS = Properties.LEVEL_15; // 0..15 dynamic luminance
 
     public LightReceiverBlock(Settings settings) {
-        super(settings.luminance(state -> state.get(LIT) ? 15 : 0));
-        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false));
+        super(settings.luminance(state -> state.contains(BRIGHTNESS) ? state.get(BRIGHTNESS) : 0));
+        this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false).with(BRIGHTNESS, 0));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(LIT);
+        builder.add(LIT, BRIGHTNESS);
     }
 
     @Override

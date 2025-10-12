@@ -9,28 +9,40 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class LightReceiverBlockEntity extends BlockEntity implements KeStorage {
-    private static final int DECAY_TICKS = 50; 
-    private int ticksSinceEnergy = DECAY_TICKS;
+    private static final int MAX_BRIGHTNESS = 15;
+    private static final int DECAY_STEPS = 50; // ticks to fade from 15 -> 0
+    private int brightness = 0; // 0..15
+    private int decayCounter = 0; // counts ticks since last energy
 
     public LightReceiverBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.LIGHT_RECEIVER, pos, state);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, LightReceiverBlockEntity be) {
-        if (world == null || world.isClient()) return;
-        boolean shouldBeLit = be.ticksSinceEnergy < DECAY_TICKS;
-        boolean isLit = state.get(LightReceiverBlock.LIT);
-        if (shouldBeLit != isLit) {
-            world.setBlockState(pos, state.with(LightReceiverBlock.LIT, shouldBeLit), 3);
+        if (world == null) return;
+        if (!world.isClient()) {
+            int current = state.get(LightReceiverBlock.BRIGHTNESS);
+            int target = be.brightness;
+            if (current != target || state.get(LightReceiverBlock.LIT) != (target > 0)) {
+                world.setBlockState(pos, state.with(LightReceiverBlock.BRIGHTNESS, target).with(LightReceiverBlock.LIT, target > 0), 3);
+            }
+
+            if (be.decayCounter < DECAY_STEPS) {
+                be.decayCounter++;
+                if (be.decayCounter % Math.max(1, DECAY_STEPS / MAX_BRIGHTNESS) == 0 && be.brightness > 0) {
+                    be.brightness = Math.max(0, be.brightness - 1);
+                    be.markDirty();
+                }
+            }
         }
-        if (be.ticksSinceEnergy < DECAY_TICKS) be.ticksSinceEnergy++;
     }
 
     @Override
     public int insertKe(int amount, boolean simulate) {
         if (amount <= 0) return 0;
         if (!simulate) {
-            ticksSinceEnergy = 0; 
+            brightness = MAX_BRIGHTNESS;
+            decayCounter = 0;
             markDirty();
         }
         return amount; 

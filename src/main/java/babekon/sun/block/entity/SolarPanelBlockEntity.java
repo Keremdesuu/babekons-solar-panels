@@ -2,19 +2,22 @@ package babekon.sun.block.entity;
 
 import babekon.sun.ModBlockEntities;
 import babekon.sun.energy.KeStorage;
+import babekon.sun.energy.KeApi;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraft.util.math.Direction;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.biome.Biome;
 
 
 public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
     private static final int CAPACITY = 10000;
-    private static final int MAX_GEN_PER_TICK = 2; 
+    private static final int MAX_GEN_PER_TICK = 8; 
 
     private int keStored = 0;
     private boolean generating = false;
@@ -52,20 +55,40 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
     public static void tick(World world, BlockPos pos, BlockState state, SolarPanelBlockEntity be) {
     if (world == null || world.isClient()) return;
 
-        boolean hasSky = world.isSkyVisible(pos.up());
-        boolean isDay = world.isDay();
+        // Environmental inputs
         int skyLight = world.getLightLevel(LightType.SKY, pos.up());
         boolean raining = world.isRaining();
         boolean thundering = world.isThundering();
+        boolean isDay = world.isDay();
 
+        // Time-of-day curve: peak at noon, low at sunrise/sunset, 0 at night
+        float timeFactor = 0f;
+        long tod = world.getTimeOfDay();
+        long t = tod % 24000L;
+        if (t >= 0 && t < 12000L) { // day window
+            float dayProg = (t / 12000f); // 0..1
+            timeFactor = 1f - Math.abs(dayProg - 0.5f) * 2f; // 0 at edges, 1 at noon
+        }
+
+        // Shade factor from sky light (captures partial occlusion)
+        float shadeFactor = MathHelper.clamp(skyLight / 15f, 0f, 1f);
+
+        // Biome and altitude multipliers
+    Biome biome = world.getBiome(pos).value();
+    float temp = biome.getTemperature();
+    float biomeFactor = MathHelper.clamp(1.0f + (temp - 0.8f) * 0.1f, 0.8f, 1.1f);
+
+        float altFactor = 1.0f + MathHelper.clamp((pos.getY() - 64) / 128f, -0.2f, 0.3f);
+
+        // Weather multipliers
+        float weatherFactor = 1.0f;
+        if (thundering) weatherFactor = 0f;
+        else if (raining) weatherFactor = 0.7f;
+
+        float combined = timeFactor * shadeFactor * biomeFactor * altFactor * weatherFactor;
         int gen = 0;
-        if (isDay && hasSky && skyLight > 10) {
-            gen = MAX_GEN_PER_TICK;
-            if (thundering) {
-                gen = 0;
-            } else if (raining) {
-                gen = Math.max(1, gen - 1);
-            }
+        if (isDay && combined > 0f) {
+            gen = Math.max(0, Math.round(MAX_GEN_PER_TICK * combined));
         }
 
         if (gen > 0 && be.keStored < CAPACITY) {
@@ -75,18 +98,17 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
         be.generating = gen > 0;
 
         if (be.keStored > 0) {
-            int toSend = Math.min(be.keStored, 4);
+            int perSide = 4; // throughput per side
             for (Direction dir : Direction.values()) {
-                if (toSend <= 0) break;
+                if (be.keStored <= 0) break;
                 BlockPos np = pos.offset(dir);
-                BlockEntity other = world.getBlockEntity(np);
-                if (other instanceof KeStorage storage) {
-                    int accepted = storage.insertKe(toSend, false);
-                    if (accepted > 0) {
-                        be.keStored -= accepted;
-                        toSend -= accepted;
-                        be.markDirty();
-                    }
+                KeStorage dst = KeApi.LOOKUP.find(world, np, dir.getOpposite());
+                if (dst == null) continue;
+                int toSend = Math.min(be.keStored, perSide);
+                int accepted = dst.insertKe(toSend, false);
+                if (accepted > 0) {
+                    be.keStored -= accepted;
+                    be.markDirty();
                 }
             }
         }
