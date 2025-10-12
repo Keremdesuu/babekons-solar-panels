@@ -29,7 +29,6 @@ $newVersion = "$major.$minor.$patch"
 $content = $content -replace 'mod_version=[0-9]+\.[0-9]+\.[0-9]+', "mod_version=$newVersion"
 Set-Content -Path $propsPath -Value $content -NoNewline
 
-# Update CHANGELOG (prepend simple entry)
 $chPath = Join-Path $repoRoot 'CHANGELOG.md'
 $today = Get-Date -Format 'yyyy-MM-dd'
 $chEntry = "`n## v$newVersion - $today`n$notes`n"
@@ -40,7 +39,6 @@ if (Test-Path $chPath) {
   Set-Content -Path $chPath -Value "# Changelog`n$chEntry"
 }
 
-# Commit, tag, push
 $gitCmdObj = Get-Command git -ErrorAction SilentlyContinue
 if ($gitCmdObj) {
   $gitCmd = $gitCmdObj.Source

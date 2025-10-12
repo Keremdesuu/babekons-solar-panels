@@ -1,8 +1,5 @@
 package babekon.sun.energy;
 
-/**
- * Simple KE storage/transfer interface for blocks and cables.
- */
 public interface KeStorage {
     /**
      * Try to insert KE units into this storage.

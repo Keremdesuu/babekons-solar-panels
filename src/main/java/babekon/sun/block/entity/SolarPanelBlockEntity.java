@@ -2,6 +2,8 @@ package babekon.sun.block.entity;
 
 import babekon.sun.ModBlockEntities;
 import babekon.sun.energy.KeStorage;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
@@ -12,7 +14,7 @@ import net.minecraft.block.entity.BlockEntity;
 
 public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
     private static final int CAPACITY = 10000;
-    private static final int MAX_GEN_PER_TICK = 2; // tune later
+    private static final int MAX_GEN_PER_TICK = 2; 
 
     private int keStored = 0;
     private boolean generating = false;
@@ -29,7 +31,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
         return CAPACITY;
     }
 
-    // KeStorage implementation: panels only allow extract, not insert
     @Override
     public int insertKe(int amount, boolean simulate) { return 0; }
 
@@ -51,7 +52,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
     public static void tick(World world, BlockPos pos, BlockState state, SolarPanelBlockEntity be) {
     if (world == null || world.isClient()) return;
 
-        // Only generate if daytime, sky visible, and not thundering (reduced or zero in rain)
         boolean hasSky = world.isSkyVisible(pos.up());
         boolean isDay = world.isDay();
         int skyLight = world.getLightLevel(LightType.SKY, pos.up());
@@ -74,7 +74,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
         }
         be.generating = gen > 0;
 
-        // Try to push out a bit of KE to adjacent storages automatically
         if (be.keStored > 0) {
             int toSend = Math.min(be.keStored, 4);
             for (Direction dir : Direction.values()) {
@@ -93,7 +92,19 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
         }
     }
 
-    // No GUI
+    // --- Persistence (NBT) ---
+    private static final String NBT_KE = "Ke";
+    private static final String NBT_GEN = "Generating";
 
-    // Persistence is temporarily omitted to avoid mapping signature issues; KE is runtime-only for now.
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        nbt.putInt(NBT_KE, Math.max(0, Math.min(CAPACITY, keStored)));
+        nbt.putBoolean(NBT_GEN, generating);
+    }
+
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        int savedKe = nbt.getInt(NBT_KE).orElse(0);
+        this.keStored = Math.max(0, Math.min(CAPACITY, savedKe));
+        this.generating = nbt.getBoolean(NBT_GEN).orElse(false);
+    }
+
 }

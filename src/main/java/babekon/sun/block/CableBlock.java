@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class CableBlock extends Block implements BlockEntityProvider {
-    // Six-way connection properties
     public static final BooleanProperty UP = Properties.UP;
     public static final BooleanProperty DOWN = Properties.DOWN;
     public static final BooleanProperty NORTH = Properties.NORTH;
@@ -27,7 +26,6 @@ public class CableBlock extends Block implements BlockEntityProvider {
     public static final BooleanProperty EAST = Properties.EAST;
     public static final BooleanProperty WEST = Properties.WEST;
 
-    // Predefined arm and center shapes (6x6 thickness)
     private static final VoxelShape CENTER = Block.createCuboidShape(5, 5, 5, 11, 11, 11);
     private static final VoxelShape ARM_UP = Block.createCuboidShape(5, 11, 5, 11, 16, 11);
     private static final VoxelShape ARM_DOWN = Block.createCuboidShape(5, 0, 5, 11, 5, 11);
@@ -65,7 +63,6 @@ public class CableBlock extends Block implements BlockEntityProvider {
     private boolean canConnect(net.minecraft.world.WorldAccess world, BlockPos neighborPos) {
         if (world == null) return false;
         BlockEntity be = world.getBlockEntity(neighborPos);
-        // Connect if the neighbor has a KE storage (including other cables, batteries, panels, lamps)
         return be instanceof babekon.sun.energy.KeStorage;
     }
 

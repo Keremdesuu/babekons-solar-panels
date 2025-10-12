@@ -1,0 +1,40 @@
+Battery ve Solar Panel KE değerlerini NBT’ye kaydet/yükle.
+Dünya kaydedilip açıldığında enerji korunur.
+KE API/bağlantı mimarisi
+
+Fabric BlockApiLookup ile “KE” için bir lookup tanımla. Kablolar instanceof yerine bu API ile komşu depoları/üreticileri bulsun.
+Bağlanabilir blokları tag ile yönet.
+Kablo iyileştirmeleri
+
+Waterlogging ve daha ince kol ölçüleri.
+Kayıp/direnç: her kablo bloğunda %x KE kaybı veya throughput sınırı.
+Komşu değişiminde anında state güncelleme (performans dostu).
+Panel mekaniği
+
+Üretim eğrisi: öğle vakti en yüksek, sabah/akşam düşük.
+Hava/biom/irtifa çarpanları, yağmur/kar etkisi.
+Gölge algısı: yarı kapalı alanlarda düşen verim.
+KE Lamp
+
+Yumuşak sönme: 15’ten kademeli 0’a düşen luminance (animasyon etkisi).
+Lit/unlit ayrı yan/üst/alt texture’ları, küçük kıvılcım partikülü.
+İçerik katmanları
+
+Tier’lı paneller (Basic/Advanced), batarya kapasiteleri, daha iyi kablolar.
+Tarif dengesi ve ilerleme (advancements) ekle.
+Konfigürasyon
+
+config/babekons-sun-panels.json: üretim oranları, kapasite, throughput, kayıp yüzdesi ayarlanabilir.
+Debug/araçlar (GUI’siz)
+
+“KE Meter” el aleti: sağ tık hedef bloğun KE’ini actionbar’da gösterir.
+Basit /ke get|set komutları (opsiyonel, sadece geliştirici amaçlı).
+Asset/UX
+
+Battery top/bottom ve Lamp top/bottom texture’ları.
+Kabloya özel doku (iron_bars yerine).
+Çeviriler ve README’de blok açıklamaları.
+CI ve sürümleme
+
+Release notlarını otomatik üret (Conventional Commits → CHANGELOG).
+Modrinth/CurseForge’e otomatik yükleme (istersen).

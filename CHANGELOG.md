@@ -21,3 +21,9 @@ All notable changes to this project will be documented in this file.
 ## v1.2.0 - 2025-10-12
 - Cables: full 6-direction connect + visual arms\n- Cables: internal buffer for chaining, auto-recompute connections\n- KE Lamp: max brightness and 5x persistence\n- Battery: side texture and model update\n- Remove all GUIs
 
+
+## v1.2.1 - 2025-10-12
+- Persist KE for Battery and Solar Panel
+- Cable buffer & 6-direction connections
+- KE Lamp visuals and brightness
+

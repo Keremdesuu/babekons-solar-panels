@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class LightReceiverBlockEntity extends BlockEntity implements KeStorage {
-    private static final int DECAY_TICKS = 50; // stay lit longer (5x) after last energy
+    private static final int DECAY_TICKS = 50; 
     private int ticksSinceEnergy = DECAY_TICKS;
 
     public LightReceiverBlockEntity(BlockPos pos, BlockState state) {
@@ -26,15 +26,14 @@ public class LightReceiverBlockEntity extends BlockEntity implements KeStorage {
         if (be.ticksSinceEnergy < DECAY_TICKS) be.ticksSinceEnergy++;
     }
 
-    // KeStorage implementation: we don't store, we just detect incoming KE
     @Override
     public int insertKe(int amount, boolean simulate) {
         if (amount <= 0) return 0;
         if (!simulate) {
-            ticksSinceEnergy = 0; // mark as recently energized
+            ticksSinceEnergy = 0; 
             markDirty();
         }
-        return amount; // accept all, but don't store
+        return amount; 
     }
 
     @Override

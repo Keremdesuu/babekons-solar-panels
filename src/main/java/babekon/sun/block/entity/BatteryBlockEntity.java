@@ -4,6 +4,8 @@ import babekon.sun.ModBlockEntities;
 import babekon.sun.energy.KeStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,8 +36,21 @@ public class BatteryBlockEntity extends BlockEntity implements KeStorage {
 
     public static void tick(World world, BlockPos pos, BlockState state, BatteryBlockEntity be) {
         if (world == null || world.isClient()) return;
-        // For now, passive storage; transfer handled by cables.
     }
+
+        // --- Persistence (NBT) ---
+        private static final String NBT_KE = "Ke";
+
+        // Use classic signatures to stay compatible with current mappings
+        // Two-arg signatures used by modern BlockEntity save/load (no @Override due to mapping differences)
+        protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+            nbt.putInt(NBT_KE, Math.max(0, Math.min(CAPACITY, ke)));
+        }
+
+        public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+            int saved = nbt.getInt(NBT_KE).orElse(0);
+            this.ke = Math.max(0, Math.min(CAPACITY, saved));
+        }
 
     @Override
     public int insertKe(int amount, boolean simulate) {
@@ -71,5 +86,4 @@ public class BatteryBlockEntity extends BlockEntity implements KeStorage {
 
     public PropertyDelegate getPropertyDelegate() { return properties; }
 
-    // No GUI
 }

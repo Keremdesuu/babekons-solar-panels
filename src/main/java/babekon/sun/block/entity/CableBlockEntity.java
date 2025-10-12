@@ -10,8 +10,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public class CableBlockEntity extends BlockEntity implements KeStorage {
-    private static final int THROUGHPUT = 16; // per tick total
-    private static final int BUFFER_CAPACITY = 64; // allows chaining cables
+    private static final int THROUGHPUT = 16; 
+    private static final int BUFFER_CAPACITY = 64; 
     private int buffer = 0;
 
     public CableBlockEntity(BlockPos pos, BlockState state) {
@@ -20,7 +20,6 @@ public class CableBlockEntity extends BlockEntity implements KeStorage {
 
     public static void tick(World world, BlockPos pos, BlockState state, CableBlockEntity be) {
         if (world == null || world.isClient()) return;
-        // Recompute connections each tick so cables react to neighbor changes without relying on Block overrides
         boolean up = canConnect(world, pos.up());
         boolean down = canConnect(world, pos.down());
         boolean north = canConnect(world, pos.north());
@@ -36,9 +35,8 @@ public class CableBlockEntity extends BlockEntity implements KeStorage {
             .with(CableBlock.WEST, west);
         if (!desired.equals(state)) {
             world.setBlockState(pos, desired, 3);
-            state = desired; // use updated state for this tick
+            state = desired;
         }
-        // Phase 1: pull into internal buffer from any connected neighbor with energy
         int budget = THROUGHPUT;
         for (Direction dir : Direction.values()) {
             if (budget <= 0) break;
@@ -59,7 +57,6 @@ public class CableBlockEntity extends BlockEntity implements KeStorage {
             }
         }
 
-        // Phase 2: push from internal buffer to any connected neighbor that can accept
         for (Direction dir : Direction.values()) {
             if (be.buffer <= 0) break;
             if (budget <= 0) break;
@@ -95,7 +92,6 @@ public class CableBlockEntity extends BlockEntity implements KeStorage {
         return be instanceof KeStorage;
     }
 
-    // Cable has a small buffer to support multi-block chains
     @Override
     public int insertKe(int amount, boolean simulate) {
         if (amount <= 0) return 0;

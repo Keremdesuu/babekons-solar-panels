@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "all": "babekons-sun-panels:block/light_receiver_lit"
+    "side": "babekons-sun-panels:block/lamp_side",
+    "top": "minecraft:block/iron_block",
+    "bottom": "minecraft:block/iron_block"
   }
 }
