@@ -20,6 +20,9 @@ public class ModBlocks {
     public static final Block BATTERY = registerBattery("battery");
     public static final Block CABLE = registerCable("cable");
     public static final Block LIGHT_RECEIVER = registerLightReceiver("light_receiver");
+    public static final Block SERVER = registerServer("server");
+    public static final Block COMPUTER = registerComputer("computer");
+    public static final Block SERVER_BRAIN = registerServerBrain("server_brain");
 
     private static Block registerSolarPanel(String name) {
         Identifier id = Identifier.of(BabekonsSunPanels.MOD_ID, name);
@@ -62,6 +65,42 @@ public class ModBlocks {
         RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
         AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.REDSTONE_LAMP).nonOpaque().strength(0.3f).registryKey(key);
         Block block = new LightReceiverBlock(settings);
+        Block registered = Registry.register(Registries.BLOCK, id, block);
+        RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, id);
+        Item.Settings itemSettings = new Item.Settings().registryKey(itemKey);
+        Registry.register(Registries.ITEM, id, new BlockItem(registered, itemSettings));
+        return registered;
+    }
+
+    private static Block registerServer(String name) {
+        Identifier id = Identifier.of(BabekonsSunPanels.MOD_ID, name);
+        RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
+        AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(3.0f, 6.0f).registryKey(key);
+        Block block = new babekon.sun.block.ServerBlock(settings);
+        Block registered = Registry.register(Registries.BLOCK, id, block);
+        RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, id);
+        Item.Settings itemSettings = new Item.Settings().registryKey(itemKey);
+        Registry.register(Registries.ITEM, id, new BlockItem(registered, itemSettings));
+        return registered;
+    }
+
+    private static Block registerComputer(String name) {
+        Identifier id = Identifier.of(BabekonsSunPanels.MOD_ID, name);
+        RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
+        AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().strength(2.0f, 6.0f).registryKey(key);
+        Block block = new babekon.sun.block.ComputerBlock(settings);
+        Block registered = Registry.register(Registries.BLOCK, id, block);
+        RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, id);
+        Item.Settings itemSettings = new Item.Settings().registryKey(itemKey);
+        Registry.register(Registries.ITEM, id, new BlockItem(registered, itemSettings));
+        return registered;
+    }
+
+    private static Block registerServerBrain(String name) {
+        Identifier id = Identifier.of(BabekonsSunPanels.MOD_ID, name);
+        RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
+        AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque().strength(2.0f, 6.0f).registryKey(key);
+        Block block = new babekon.sun.block.ServerBrainBlock(settings);
         Block registered = Registry.register(Registries.BLOCK, id, block);
         RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, id);
         Item.Settings itemSettings = new Item.Settings().registryKey(itemKey);

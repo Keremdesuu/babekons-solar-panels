@@ -13,8 +13,11 @@ import net.minecraft.util.Identifier;
 public class ModBlockEntities {
     public static BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL;
     public static BlockEntityType<BatteryBlockEntity> BATTERY;
-    public static BlockEntityType<CableBlockEntity> CABLE;
+        public static BlockEntityType<CableBlockEntity> CABLE;
         public static BlockEntityType<LightReceiverBlockEntity> LIGHT_RECEIVER;
+        public static BlockEntityType<babekon.sun.block.entity.ServerBlockEntity> SERVER;
+        public static BlockEntityType<babekon.sun.block.entity.ComputerBlockEntity> COMPUTER;
+                public static BlockEntityType<babekon.sun.block.entity.ServerBrainBlockEntity> SERVER_BRAIN;
 
     public static void register() {
         SOLAR_PANEL = Registry.register(
@@ -39,6 +42,24 @@ public class ModBlockEntities {
                 Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(BabekonsSunPanels.MOD_ID, "light_receiver"),
                 FabricBlockEntityTypeBuilder.create(LightReceiverBlockEntity::new, ModBlocks.LIGHT_RECEIVER).build()
+        );
+
+        SERVER = Registry.register(
+                Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(BabekonsSunPanels.MOD_ID, "server"),
+                FabricBlockEntityTypeBuilder.create(babekon.sun.block.entity.ServerBlockEntity::new, ModBlocks.SERVER).build()
+        );
+
+        COMPUTER = Registry.register(
+                Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(BabekonsSunPanels.MOD_ID, "computer"),
+                FabricBlockEntityTypeBuilder.create(babekon.sun.block.entity.ComputerBlockEntity::new, ModBlocks.COMPUTER).build()
+        );
+
+        SERVER_BRAIN = Registry.register(
+                Registries.BLOCK_ENTITY_TYPE,
+                Identifier.of(BabekonsSunPanels.MOD_ID, "server_brain"),
+                FabricBlockEntityTypeBuilder.create(babekon.sun.block.entity.ServerBrainBlockEntity::new, ModBlocks.SERVER_BRAIN).build()
         );
 
         BabekonsSunPanels.LOGGER.info("Registered block entities for {}", BabekonsSunPanels.MOD_ID);

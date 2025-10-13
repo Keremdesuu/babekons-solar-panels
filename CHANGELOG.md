@@ -49,3 +49,7 @@ All notable changes to this project will be documented in this file.
 ## v1.2.6 - 2025-10-12
 - Update textures for solar panel (side/bottom)\n- Update lamp top/bottom/side and model mapping\n- Update battery top/bottom/side\n- Update cable center/arms to cable_side/cable_top
 
+
+## v1.2.7 - 2025-10-13
+- Add Server Brain block that counts connected Server blocks via cables\n- Computer prefers Brain count for total capacity; fallback to direct Server discovery\n- Computer opens 9x6 inventory; Shift+Right-Click cycles server page\n- Minor fixes and safeguards
+

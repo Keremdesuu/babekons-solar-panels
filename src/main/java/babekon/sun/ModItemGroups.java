@@ -26,6 +26,9 @@ public class ModItemGroups {
                             entries.add(ModBlocks.BATTERY);
                             entries.add(ModBlocks.CABLE);
                             entries.add(ModBlocks.LIGHT_RECEIVER);
+                            entries.add(ModBlocks.SERVER);
+                            entries.add(ModBlocks.COMPUTER);
+                            entries.add(ModBlocks.SERVER_BRAIN);
                         })
                         .build());
 
