@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 
 public class LightReceiverBlockEntity extends BlockEntity implements KeStorage {
     private static final int MAX_BRIGHTNESS = 15;
-    private static final int DECAY_STEPS = 50; // ticks to fade from 15 -> 0
-    private int brightness = 0; // 0..15
-    private int decayCounter = 0; // counts ticks since last energy
+    private static final int DECAY_STEPS = 50;
+    private int brightness = 0;
+    private int decayCounter = 0;
 
     public LightReceiverBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.LIGHT_RECEIVER, pos, state);

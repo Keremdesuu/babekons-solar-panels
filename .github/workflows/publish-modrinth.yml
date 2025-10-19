@@ -40,7 +40,6 @@ jobs:
           modrinth-id: ${{ secrets.MODRINTH_PROJECT_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          # Use the tag as the version name/number when available
           name: ${{ github.ref_name }}
           version: ${{ github.ref_name }}
           version-type: release
@@ -49,9 +48,6 @@ jobs:
           loaders: |
             fabric
 
-          # mc-publish can auto-detect game versions from metadata; you can optionally set them:
-          # game-versions: |
-          #   1.21.1
 
           files: |
             build/libs/*.jar

@@ -58,11 +58,9 @@ public class ItemStorageInventory implements Inventory {
     public void setStack(int slot, ItemStack stack) {
         ItemStorage s = storage();
         if (s == null) return;
-        // remove existing then insert new
         ItemStack cur = s.getStack(slot);
         if (!cur.isEmpty()) s.extract(slot, cur.getCount());
         ItemStack rem = s.insert(stack);
-        // if remainder exists, try to put it back to same slot (best-effort)
     }
 
     @Override

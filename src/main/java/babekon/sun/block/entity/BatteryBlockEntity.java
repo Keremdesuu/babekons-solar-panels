@@ -24,7 +24,7 @@ public class BatteryBlockEntity extends BlockEntity implements KeStorage {
         }
 
         @Override
-        public void set(int index, int value) { /* read-only from client */ }
+    public void set(int index, int value) { }
 
         @Override
         public int size() { return 2; }
@@ -38,11 +38,7 @@ public class BatteryBlockEntity extends BlockEntity implements KeStorage {
         if (world == null || world.isClient()) return;
     }
 
-        // --- Persistence (NBT) ---
         private static final String NBT_KE = "Ke";
-
-        // Use classic signatures to stay compatible with current mappings
-        // Two-arg signatures used by modern BlockEntity save/load (no @Override due to mapping differences)
         protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
             nbt.putInt(NBT_KE, Math.max(0, Math.min(CAPACITY, ke)));
         }

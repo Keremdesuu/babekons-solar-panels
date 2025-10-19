@@ -20,7 +20,6 @@ public class BabekonsSunPanels implements ModInitializer {
 		ModBlockEntities.register();
 		ModItemGroups.registerItemGroups();
 		KeApi.register();
-	// Expose ItemStorage providers
 	ItemApi.LOOKUP.registerForBlockEntities((be, side) -> (be instanceof babekon.sun.inventory.ItemStorage s) ? s : null,
 		ModBlockEntities.SERVER,
 		ModBlockEntities.COMPUTER

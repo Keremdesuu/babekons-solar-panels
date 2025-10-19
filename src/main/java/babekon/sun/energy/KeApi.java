@@ -13,7 +13,6 @@ public final class KeApi {
             BlockApiLookup.get(Identifier.of(BabekonsSunPanels.MOD_ID, "ke"), KeStorage.class, Direction.class);
 
     public static void register() {
-        // Expose KeStorage for our block entities via the API lookup
         LOOKUP.registerForBlockEntities((be, side) -> (be instanceof KeStorage ks) ? ks : null,
                 ModBlockEntities.BATTERY,
                 ModBlockEntities.SOLAR_PANEL,

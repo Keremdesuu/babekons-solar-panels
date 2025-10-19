@@ -33,7 +33,6 @@ public class CableBlock extends Block implements BlockEntityProvider, Waterlogga
     public static final BooleanProperty WEST = Properties.WEST;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    // Thinner center and arms (4px thickness)
     private static final VoxelShape CENTER = Block.createCuboidShape(6, 6, 6, 10, 10, 10);
     private static final VoxelShape ARM_UP = Block.createCuboidShape(6, 10, 6, 10, 16, 10);
     private static final VoxelShape ARM_DOWN = Block.createCuboidShape(6, 0, 6, 10, 6, 10);
@@ -73,7 +72,6 @@ public class CableBlock extends Block implements BlockEntityProvider, Waterlogga
 
     private boolean canConnect(net.minecraft.world.WorldAccess world, BlockPos neighborPos) {
         if (world == null) return false;
-        // Connect if KE API is present or block is tagged as connectable
         if (KeApi.LOOKUP.find((World) world, neighborPos, null) != null) return true;
         return world.getBlockState(neighborPos).isIn(ModTags.KE_CONNECTABLE);
     }
@@ -82,9 +80,6 @@ public class CableBlock extends Block implements BlockEntityProvider, Waterlogga
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
-
-    // Note: If water physics need to update on neighbor changes, consider scheduling a fluid tick
-    // via an appropriate neighbor callback for this mappings version.
 
     
 

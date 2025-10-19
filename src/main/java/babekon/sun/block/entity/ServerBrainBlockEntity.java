@@ -43,10 +43,7 @@ public class ServerBrainBlockEntity extends BlockEntity implements ServerBrain {
         return cnt;
     }
 
-    // persistence
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) { nbt.putInt("count", serverCount); }
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) { serverCount = nbt.getInt("count").orElse(0); }
-
-    // ServerBrain
     @Override public int getServerCount() { return serverCount; }
 }

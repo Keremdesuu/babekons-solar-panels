@@ -17,7 +17,7 @@ import net.minecraft.world.biome.Biome;
 
 public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
     private static final int CAPACITY = 10000;
-    private static final int MAX_GEN_PER_TICK = 8; 
+    private static final int MAX_GEN_PER_TICK = 8;
 
     private int keStored = 0;
     private boolean generating = false;
@@ -55,32 +55,27 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
     public static void tick(World world, BlockPos pos, BlockState state, SolarPanelBlockEntity be) {
     if (world == null || world.isClient()) return;
 
-        // Environmental inputs
         int skyLight = world.getLightLevel(LightType.SKY, pos.up());
         boolean raining = world.isRaining();
         boolean thundering = world.isThundering();
         boolean isDay = world.isDay();
 
-        // Time-of-day curve: peak at noon, low at sunrise/sunset, 0 at night
         float timeFactor = 0f;
         long tod = world.getTimeOfDay();
         long t = tod % 24000L;
-        if (t >= 0 && t < 12000L) { // day window
-            float dayProg = (t / 12000f); // 0..1
-            timeFactor = 1f - Math.abs(dayProg - 0.5f) * 2f; // 0 at edges, 1 at noon
+        if (t >= 0 && t < 12000L) {
+            float dayProg = (t / 12000f);
+            timeFactor = 1f - Math.abs(dayProg - 0.5f) * 2f;
         }
 
-        // Shade factor from sky light (captures partial occlusion)
         float shadeFactor = MathHelper.clamp(skyLight / 15f, 0f, 1f);
 
-        // Biome and altitude multipliers
     Biome biome = world.getBiome(pos).value();
     float temp = biome.getTemperature();
     float biomeFactor = MathHelper.clamp(1.0f + (temp - 0.8f) * 0.1f, 0.8f, 1.1f);
 
         float altFactor = 1.0f + MathHelper.clamp((pos.getY() - 64) / 128f, -0.2f, 0.3f);
 
-        // Weather multipliers
         float weatherFactor = 1.0f;
         if (thundering) weatherFactor = 0f;
         else if (raining) weatherFactor = 0.7f;
@@ -98,7 +93,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
         be.generating = gen > 0;
 
         if (be.keStored > 0) {
-            int perSide = 4; // throughput per side
+            int perSide = 4;
             for (Direction dir : Direction.values()) {
                 if (be.keStored <= 0) break;
                 BlockPos np = pos.offset(dir);
@@ -114,7 +109,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements KeStorage {
         }
     }
 
-    // --- Persistence (NBT) ---
     private static final String NBT_KE = "Ke";
     private static final String NBT_GEN = "Generating";
 

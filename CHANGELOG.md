@@ -53,3 +53,7 @@ All notable changes to this project will be documented in this file.
 ## v1.2.7 - 2025-10-13
 - Add Server Brain block that counts connected Server blocks via cables\n- Computer prefers Brain count for total capacity; fallback to direct Server discovery\n- Computer opens 9x6 inventory; Shift+Right-Click cycles server page\n- Minor fixes and safeguards
 
+
+## v1.2.8 - 2025-10-19
+
+

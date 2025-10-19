@@ -18,7 +18,7 @@ import java.util.Set;
 
 public class ComputerBlockEntity extends BlockEntity implements ItemStorage {
     private int serverCount = 0;
-    private int currentPage = 0; // index into serverPositions
+    private int currentPage = 0;
     private java.util.List<BlockPos> serverPositions = new java.util.ArrayList<>();
 
     public ComputerBlockEntity(BlockPos pos, BlockState state) {
@@ -27,10 +27,9 @@ public class ComputerBlockEntity extends BlockEntity implements ItemStorage {
 
     public void tickServer() {
     if (world == null || world.isClient()) return;
-        // BFS over KE cables to find ItemStorage providers (servers)
-        // Prefer a server brain: if present on network, use its count. Still record positions via standard discovery for IO
+        
         int brainCount = findBrainCount(world, pos, 128);
-        java.util.List<BlockPos> found = discoverServers(world, pos, 128); // bounded search
+    java.util.List<BlockPos> found = discoverServers(world, pos, 128);
         serverPositions = found;
         int cnt = (brainCount >= 0) ? brainCount : found.size();
         if (cnt != serverCount) { serverCount = cnt; if (currentPage >= serverCount) currentPage = Math.max(0, serverCount - 1); markDirty(); }
@@ -65,7 +64,7 @@ public class ComputerBlockEntity extends BlockEntity implements ItemStorage {
             for (Direction dir : Direction.values()) {
                 BlockPos np = p.offset(dir);
                 if (!visited.add(np)) continue;
-                // Count servers but do not traverse through them; traverse via cables/computers only
+                
                 BlockEntity be = w.getBlockEntity(np);
                 if (be instanceof ServerBlockEntity) {
                     servers.add(np);
@@ -79,8 +78,7 @@ public class ComputerBlockEntity extends BlockEntity implements ItemStorage {
         return servers;
     }
 
-    // Persistence
-    // Two-arg NBT methods without @Override due to mapping differences (align with Battery/Solar pattern)
+    
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         nbt.putInt("serverCount", serverCount);
         nbt.putInt("page", currentPage);
@@ -91,7 +89,7 @@ public class ComputerBlockEntity extends BlockEntity implements ItemStorage {
         currentPage = Math.max(0, Math.min(serverCount - 1, nbt.getInt("page").orElse(0)));
     }
 
-    // ItemStorage: expose combined logical slots (54 per server)
+    
     @Override
     public int size() {
         return serverCount * 54;

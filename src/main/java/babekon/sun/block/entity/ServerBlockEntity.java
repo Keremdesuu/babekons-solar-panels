@@ -11,26 +11,19 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
 public class ServerBlockEntity extends BlockEntity implements ItemStorage {
-    private static final int SIZE = 54; // double chest
+    private static final int SIZE = 54;
     private final DefaultedList<ItemStack> stacks = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
 
     public ServerBlockEntity(BlockPos pos, BlockState state) {
         super(babekon.sun.ModBlockEntities.SERVER, pos, state);
     }
 
-    public void tickServer() {
-        // no-op for now
-    }
+    public void tickServer() { }
 
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        // TODO: serialize items when stable item NBT helpers identified for this mapping
-    }
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) { }
 
-    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        // Real item serialization can be added later
-    }
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) { }
 
-    // ItemStorage
     public int size() { return SIZE; }
     public ItemStack getStack(int slot) { return stacks.get(slot); }
     public ItemStack insert(ItemStack stack) {

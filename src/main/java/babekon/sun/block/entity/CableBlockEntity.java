@@ -89,7 +89,6 @@ public class CableBlockEntity extends BlockEntity implements KeStorage {
 
     private static boolean canConnect(World world, BlockPos neighborPos) {
         if (world == null) return false;
-        // Connect if neighbor exposes KE API or the block is tagged as connectable
         KeStorage ks = KeApi.LOOKUP.find(world, neighborPos, null);
         if (ks != null) return true;
         return world.getBlockState(neighborPos).isIn(babekon.sun.ModTags.KE_CONNECTABLE);

@@ -17,8 +17,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class LightReceiverBlock extends Block implements BlockEntityProvider {
-    public static final BooleanProperty LIT = Properties.LIT; // for model switching
-    public static final IntProperty BRIGHTNESS = Properties.LEVEL_15; // 0..15 dynamic luminance
+    public static final BooleanProperty LIT = Properties.LIT;
+    public static final IntProperty BRIGHTNESS = Properties.LEVEL_15;
 
     public LightReceiverBlock(Settings settings) {
         super(settings.luminance(state -> state.contains(BRIGHTNESS) ? state.get(BRIGHTNESS) : 0));
